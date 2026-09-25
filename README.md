@@ -1,0 +1,1 @@
+Shopping list application for Mayden's technical assessment
