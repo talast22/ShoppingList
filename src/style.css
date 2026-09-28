@@ -1,0 +1,15 @@
+h1 {
+     font-family: Brush Script MT , cursive; text-align: center;
+}
+
+table {
+     margin-left: auto;  margin-right: auto; border: 1px solid black; border-collapse: collapse;
+}
+
+#totalCost{
+     font-weight: bold;
+}
+
+#addItemContainer {
+    text-align: center;
+}

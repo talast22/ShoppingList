@@ -1,37 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+<body> 
+<h1 name ="addItemContainer">Shopping List</h1> 
+
+
 <?php
 require_once __DIR__.'/controllers/ShoppingListController.php';
-include_once __DIR__.'/viewElements/listItemDisplayGen.php'; ?> 
+include_once __DIR__.'/viewElements/listItemRowGen.php'; 
 
 
-<html>
-<h1 style="text-align: center;">Shopping List</h1> 
-<body>
+// Setup controller
+$controller = new ShoppingListViewController(null);
+$controller-> handlePOSTData();
 
-<!-- Add new item widget -->
- <?php include_once __DIR__.'/viewElements/addItemWidget.php'; ?> 
-<br/>
-
-
-<!-- Display the list of item boxes-->
-<?php 
-$shoppingListItems = getShoppingListItems();
+//Display the list of items
+$shoppingListItems = $controller->getShoppingListItems();
 if(!empty($shoppingListItems)) {
 
-    echo(<<<HTML
-        <table style=" margin-left: auto;  margin-right: auto; width: 80%; border: 1px solid black; border-collapse: collapse;">
-            <tr>
-            <th>Item</th>
-            </tr>
-        HTML);
+    echo('<table>');
 
 
     foreach ($shoppingListItems as $item) {
-        echo(createListItemDisplay($item));
+        echo(createListItemRow($item));
     }
 
-    echo('</table>');
+    echo('<tr><td id="totalCost">Total Cost: </td> <td>' . $controller->getTotalCost() . '</td></tr>');
+
+    echo('</table><br>');
 };
 
+//'Add new item' widget 
+
+include_once __DIR__.'/viewElements/addItemWidget.php';
 
 ?>
 
