@@ -17,7 +17,6 @@ class ShoppingListViewController {
     }
 
     public function handlePOSTData() {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if(isset($_POST['new_item'])) {
                 $this->addItem($_POST['new_item']['name'], $_POST['new_item']['price'], $_POST['new_item']['position']);
@@ -42,7 +41,6 @@ class ShoppingListViewController {
     }
 
     public function getShoppingListItems() {
-
         if ($this->shoppingList == null) {
             $this->shoppingList = $this->db->getListItems();
         }

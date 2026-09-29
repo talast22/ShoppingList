@@ -14,7 +14,7 @@ class DB {
 
         $sql = "CREATE DATABASE IF NOT EXISTS ". DB_NAME;
         if ($setup_conn->query($sql) !== TRUE) {
-        echo "Error creating database: " . $setup_conn->error;
+            echo "Error creating database: " . $setup_conn->error;
         }
 
         $setup_conn->close();
@@ -38,15 +38,15 @@ class DB {
         $item_collected = (int) $item->isCollected();
         $item_listOrder = $item->getListOrder();
 
-        $stmt = $this->conn->prepare("INSERT INTO " . LIST_ITEM_TABLE . " (id, name, price, collected, listOrder) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssdii", $item_id, $item_name, $item_price, $item_collected, $item_listOrder);
-        $stmt->execute();
-        $stmt->close();
+        $insert_item_statement = $this->conn->prepare("INSERT INTO " . LIST_ITEM_TABLE . " (id, name, price, collected, listOrder) VALUES (?, ?, ?, ?, ?)");
+        $insert_item_statement->bind_param("ssdii", $item_id, $item_name, $item_price, $item_collected, $item_listOrder);
+        $insert_item_statement->execute();
+        $insert_item_statement->close();
     }
 
     public function deleteListItem($item_id) {
         // First, lower the 'list order' values of all subsequent items
-        $query = "UPDATE ". LIST_ITEM_TABLE . " as target, (SELECT listorder from ". LIST_ITEM_TABLE . " WHERE id = ?) as DELETED SET target.listorder = target.listorder - 1 WHERE target.listorder > deleted.listorder";
+        $query = "UPDATE ". LIST_ITEM_TABLE . " AS target, (SELECT listorder from ". LIST_ITEM_TABLE . " WHERE id = ?) AS deleted SET target.listorder = target.listorder - 1 WHERE target.listorder > deleted.listorder";
         $updateListOrderStatement = $this->conn->prepare($query);
         $updateListOrderStatement->bind_param("s", $item_id);
         $updateListOrderStatement->execute();
@@ -90,9 +90,6 @@ class DB {
         $updateStatment->execute();
         $updateStatment->close();
     }
-    
 }
-
-
 
 ?>

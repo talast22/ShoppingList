@@ -1,6 +1,8 @@
 <?php
 class ListItem {
+    
     private $id;
+
     private $name;
 
     private $price;

@@ -4,8 +4,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
 <body> 
-<h1 name ="addItemContainer">Shopping List</h1> 
-
+<h1>Shopping List</h1> 
 
 <?php
 require_once __DIR__.'/controllers/ShoppingListController.php';
@@ -22,7 +21,6 @@ if(!empty($shoppingListItems)) {
 
     echo('<table>');
 
-
     foreach ($shoppingListItems as $item) {
         echo(createListItemRow($item));
     }
@@ -33,11 +31,8 @@ if(!empty($shoppingListItems)) {
 };
 
 //'Add new item' widget 
-
 include_once __DIR__.'/viewElements/addItemWidget.php';
-
 ?>
-
 
 </body>
 </html>
